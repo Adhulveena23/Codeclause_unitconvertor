@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .converter {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .input-group {
+            margin: 10px;
+        }
+
+        .input-group input {
+            width: 100px;
+        }
+
+        .input-group select {
+            width: 120px;
+        }
+
+        .btn-convert {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unit Converter</h1>
+
+    <div class="converter">
+        <div class="input-group">
+            <input type="number" id="inputValue">
+            <select id="inputUnit">
+                <option value="cm">cm</option>
+                <option value="inch">inch</option>
+                <option value="m">m</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="outputValue" readonly>
+            <select id="outputUnit">
+                <option value="cm">cm</option>
+                <option value="inch">inch</option>
+                <option value="m">m</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="btn-convert" onclick="convert()">Convert</button>
+
+    <div class="result">
+        <p id="conversionResult"></p>
+    </div>
+
+    <script>
+        function convert() {
+            var inputValue = parseFloat(document.getElementById("inputValue").value);
+            var inputUnit = document.getElementById("inputUnit").value;
+            var outputUnit = document.getElementById("outputUnit").value;
+            var outputValue;
+
+            if (inputUnit === "cm" && outputUnit === "inch") {
+                outputValue = inputValue / 2.54;
+            } else if (inputUnit === "inch" && outputUnit === "cm") {
+                outputValue = inputValue * 2.54;
+            } else if (inputUnit === "cm" && outputUnit === "m") {
+                outputValue = inputValue / 100;
+            } else if (inputUnit === "m" && outputUnit === "cm") {
+                outputValue = inputValue * 100;
+            } else if (inputUnit === "inch" && outputUnit === "m") {
+                outputValue = inputValue * 0.0254;
+            } else if (inputUnit === "m" && outputUnit === "inch") {
+                outputValue = inputValue / 0.0254;
+            } else {
+                outputValue = inputValue;
+            }
+
+            document.getElementById("outputValue").value = outputValue.toFixed(2);
+            document.getElementById("conversionResult").textContent = inputValue + " " + inputUnit + " is equal to " + outputValue.toFixed(2) + " " + outputUnit;
+        }
+    </script>
+</body>
+</html>
